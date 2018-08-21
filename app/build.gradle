@@ -6,7 +6,7 @@ apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    buildToolsVersion '26.0.2'
     defaultConfig {
         applicationId "com.example.josuegramajo.kotlintest"
         minSdkVersion 21
@@ -41,6 +41,9 @@ dependencies {
 
     compile "com.google.android.gms:play-services:$android_play_services_version"
     compile "com.google.firebase:firebase-auth:$android_play_services_version"
+
+
+    implementation 'com.google.firebase:firebase-firestore:11.8.0'
 
     testCompile 'junit:junit:4.12'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'

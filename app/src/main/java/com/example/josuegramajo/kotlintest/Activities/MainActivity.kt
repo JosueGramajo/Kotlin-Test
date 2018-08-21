@@ -14,6 +14,7 @@ import com.example.josuegramajo.kotlintest.Fragments.CardViewFragment
 import com.example.josuegramajo.kotlintest.Fragments.LandingFragment
 import com.example.josuegramajo.kotlintest.Fragments.RecyclerViewFragment
 import com.example.josuegramajo.kotlintest.Fragments.ScrollFragment
+import com.example.josuegramajo.kotlintest.Utils.FirestoreUtils
 import com.google.firebase.auth.*
 
 import org.jetbrains.anko.*
@@ -33,6 +34,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setContentView(R.layout.activity_main)
 
         mAuth = FirebaseAuth.getInstance()
+
+
+        mAuth.currentUser?.let {
+            FirestoreUtils().retrieveRols(this, it.uid)
+        }
 
         val toolbar = findViewById(R.id.main_toolbar) as android.support.v7.widget.Toolbar
         setSupportActionBar(toolbar)

@@ -7,6 +7,7 @@ import android.widget.EditText
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.example.josuegramajo.kotlintest.R
+import com.example.josuegramajo.kotlintest.Utils.FirestoreUtils
 import com.google.firebase.auth.*
 import org.jetbrains.anko.*
 
@@ -40,6 +41,8 @@ class LoginActivity : AppCompatActivity(){
         })
 
         mAuth = FirebaseAuth.getInstance()
+
+
     }
 
     fun doLogin(){
@@ -79,6 +82,7 @@ class LoginActivity : AppCompatActivity(){
     fun loginUser(email:String,password:String){
         mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(this,{ result ->
             if(result.isSuccessful){
+
                 startActivity<MainActivity>("email" to email)
             }else{
                 findException(result.exception as Throwable)

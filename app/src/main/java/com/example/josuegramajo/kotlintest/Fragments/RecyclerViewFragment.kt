@@ -14,6 +14,7 @@ import android.widget.LinearLayout
 import com.example.josuegramajo.kotlintest.Adapters.RecyclerViewAdapter
 import com.example.josuegramajo.kotlintest.Objects.Activities
 import com.example.josuegramajo.kotlintest.R
+import com.example.josuegramajo.kotlintest.Utils.FirestoreUtils
 import org.jetbrains.anko.*
 import org.jetbrains.anko.support.v4.alert
 import org.jetbrains.anko.support.v4.toast
