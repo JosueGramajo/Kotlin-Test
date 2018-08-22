@@ -9,17 +9,19 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
+import android.widget.Toast
 import com.example.josuegramajo.kotlintest.R
 import com.example.josuegramajo.kotlintest.Fragments.CardViewFragment
 import com.example.josuegramajo.kotlintest.Fragments.LandingFragment
 import com.example.josuegramajo.kotlintest.Fragments.RecyclerViewFragment
 import com.example.josuegramajo.kotlintest.Fragments.ScrollFragment
+import com.example.josuegramajo.kotlintest.Utils.Companions
 import com.example.josuegramajo.kotlintest.Utils.FirestoreUtils
 import com.google.firebase.auth.*
 
 import org.jetbrains.anko.*
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener {
     lateinit var drawerLayout : DrawerLayout
     lateinit var mAuth:FirebaseAuth
 
@@ -35,10 +37,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         mAuth = FirebaseAuth.getInstance()
 
-
-        mAuth.currentUser?.let {
-            FirestoreUtils().retrieveRols(this, it.uid)
-        }
+        makeAnkoAlert("${Companions.uid} - ${Companions.email} - ${Companions.role.role!!}","")
 
         val toolbar = findViewById(R.id.main_toolbar) as android.support.v7.widget.Toolbar
         setSupportActionBar(toolbar)
@@ -61,7 +60,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         var headerLayout = navigationView.getHeaderView(0)
 
         val user_email = headerLayout.findViewById(R.id.user_email) as TextView
-        user_email.setText(intent.getStringExtra("email"))
+        user_email.setText(Companions.email)
+
+        //intent.getStringExtra("email")
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
