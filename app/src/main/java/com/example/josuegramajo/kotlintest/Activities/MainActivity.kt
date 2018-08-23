@@ -23,7 +23,6 @@ import org.jetbrains.anko.*
 
 class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener {
     lateinit var drawerLayout : DrawerLayout
-    lateinit var mAuth:FirebaseAuth
 
     enum class fragments{
         FRAGMENT_RECYCLER,
@@ -37,7 +36,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
         mAuth = FirebaseAuth.getInstance()
 
-        makeAnkoAlert("${Companions.uid} - ${Companions.email} - ${Companions.role.role!!}","")
+        //makeAnkoAlert("${Companions.uid} - ${Companions.email} - ${Companions.role.role!!}","")
 
         val toolbar = findViewById(R.id.main_toolbar) as android.support.v7.widget.Toolbar
         setSupportActionBar(toolbar)
@@ -60,7 +59,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         var headerLayout = navigationView.getHeaderView(0)
 
         val user_email = headerLayout.findViewById(R.id.user_email) as TextView
-        user_email.setText(Companions.email)
+        user_email.setText(Companions.user.email)
 
         //intent.getStringExtra("email")
     }

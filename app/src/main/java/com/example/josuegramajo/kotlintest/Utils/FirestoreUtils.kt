@@ -4,40 +4,45 @@ package com.example.josuegramajo.kotlintest.Utils
  * Created by josuegramajo on 8/21/18.
  */
 
-import com.example.josuegramajo.kotlintest.Objects.Rol
-import com.example.josuegramajo.kotlintest.Objects.Role
+import com.example.josuegramajo.kotlintest.Objects.BaseObject
+import com.example.josuegramajo.kotlintest.Objects.User
 import com.google.firebase.firestore.EventListener
 import com.google.firebase.firestore.FirebaseFirestore
 
 class FirestoreUtils{
 
+    enum class fs_collection(val rawValue: String){
+        USER("User")
+    }
+
     private var firestoreDB: FirebaseFirestore? = null
 
-    fun retrieveRols(uid:String, callback: (Role) -> Unit){
-        var role = Role()
+    fun retrieveUser(uid:String, callback: (User) -> Unit){
+        var user = User()
 
         firestoreDB = FirebaseFirestore.getInstance()
 
-        firestoreDB!!.collection("Roles").whereEqualTo("uid", uid).addSnapshotListener(EventListener { documentSnapshots, e ->
+        firestoreDB!!.collection("User").whereEqualTo("uid", uid).addSnapshotListener(EventListener { documentSnapshots, e ->
             if(e != null){
                 return@EventListener
             }
 
             if(!documentSnapshots.isEmpty){
-                role = documentSnapshots.documents.get(0).toObject(Role::class.java)
+                user = documentSnapshots.documents.get(0).toObject(User::class.java)
             }
 
-            callback(role)
+            callback(user)
         })
     }
 
-    fun registerUserRole(role:Role, callback: (String) -> Unit){
+
+    fun writeObjectInFirestore(obj:BaseObject, collection:FirestoreUtils.fs_collection, onSuccess: (String) -> Unit, onFailure: (String) -> Unit){
         firestoreDB = FirebaseFirestore.getInstance()
 
-        firestoreDB!!.collection("Roles").document().set(role).addOnSuccessListener {
-            callback("Usuario registrado exitosamente")
+        firestoreDB!!.collection(collection.rawValue).document().set(obj).addOnSuccessListener {
+            onSuccess("Usuario registrado exitosamente")
         }.addOnFailureListener {
-            callback("No se pudo registrar un rol para el usuario seleccionado")
+            onFailure("No se pudo registrar un rol para el usuario seleccionado")
         }
     }
 }

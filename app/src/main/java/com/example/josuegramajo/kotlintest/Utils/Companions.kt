@@ -1,6 +1,6 @@
 package com.example.josuegramajo.kotlintest.Utils
 
-import com.example.josuegramajo.kotlintest.Objects.Role
+import com.example.josuegramajo.kotlintest.Objects.User
 
 /**
  * Created by josuegramajo on 8/22/18.
@@ -8,8 +8,6 @@ import com.example.josuegramajo.kotlintest.Objects.Role
 
 class Companions{
     companion object {
-        lateinit var role : Role
-        lateinit var email : String
-        lateinit var uid : String
+        lateinit var user: User
     }
 }
